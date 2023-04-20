@@ -1,0 +1,1 @@
+/usr/bin/c++ -g -rdynamic CMakeFiles/main.dir/src/main.cpp.o CMakeFiles/main.dir/src/elevator.cpp.o CMakeFiles/main.dir/src/elevsystem.cpp.o CMakeFiles/main.dir/src/person.cpp.o -o main 
