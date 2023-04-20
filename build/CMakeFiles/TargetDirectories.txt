@@ -1,5 +1,0 @@
-/home/xein/Documents/CPPTEST/Elevator/build/CMakeFiles/main.dir
-/home/xein/Documents/CPPTEST/Elevator/build/CMakeFiles/package.dir
-/home/xein/Documents/CPPTEST/Elevator/build/CMakeFiles/package_source.dir
-/home/xein/Documents/CPPTEST/Elevator/build/CMakeFiles/edit_cache.dir
-/home/xein/Documents/CPPTEST/Elevator/build/CMakeFiles/rebuild_cache.dir
