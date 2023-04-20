@@ -72,9 +72,13 @@ void Elev::AddPeople(Person &person)
 // 删除乘客
 void Elev::RemovePeople(Person &person)
 {
-    for (int i = 0; i < currentPeople; i++)
+    for (int i = 0; i < people.size(); i++)
     {
-        // Todo:
+        if (people[i].getId() == person.getId())
+        {
+            people.erase(people.begin() + i);
+            currentPeople--;
+        }
     }
 }
 
