@@ -5,7 +5,7 @@
             "name": "GDB调试 with Makefile",
             "type": "cppdbg",
             "request": "launch",
-            "program": "${workspaceFolder}/build/${fileBasenameNoExtension}",
+            "program": "${workspaceFolder}/build/${workspaceFolderBasename}",
             "args": [],
             "stopAtEntry": false,
             "cwd": "${workspaceFolder}",
