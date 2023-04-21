@@ -1,0 +1,36 @@
+Date : 2023-04-21 03:03:20
+Directory : /home/xein/Documents/CPPTEST/Elevator/src
+Total : 9 files,  112 codes, 9 comments, 9 blanks, all 130 lines
+
+Languages
++----------+------------+------------+------------+------------+------------+
+| language | files      | code       | comment    | blank      | total      |
++----------+------------+------------+------------+------------+------------+
+| C++      |          9 |        112 |          9 |          9 |        130 |
++----------+------------+------------+------------+------------+------------+
+
+Directories
++--------------------------------------------------------------+------------+------------+------------+------------+------------+
+| path                                                         | files      | code       | comment    | blank      | total      |
++--------------------------------------------------------------+------------+------------+------------+------------+------------+
+| .                                                            |          9 |        112 |          9 |          9 |        130 |
+| . (Files)                                                    |          5 |        179 |         20 |         30 |        229 |
+| ..                                                           |          4 |        -67 |        -11 |        -21 |        -99 |
+| ../include                                                   |          4 |        -67 |        -11 |        -21 |        -99 |
++--------------------------------------------------------------+------------+------------+------------+------------+------------+
+
+Files
++--------------------------------------------------------------+----------+------------+------------+------------+------------+
+| filename                                                     | language | code       | comment    | blank      | total      |
++--------------------------------------------------------------+----------+------------+------------+------------+------------+
+| /home/xein/Documents/CPPTEST/Elevator/include/elevator.hpp   | C++      |        -31 |         -7 |         -8 |        -46 |
+| /home/xein/Documents/CPPTEST/Elevator/include/elevsystem.hpp | C++      |        -14 |          0 |         -6 |        -20 |
+| /home/xein/Documents/CPPTEST/Elevator/include/person.hpp     | C++      |        -16 |         -4 |         -4 |        -24 |
+| /home/xein/Documents/CPPTEST/Elevator/include/stimula.hpp    | C++      |         -6 |          0 |         -3 |         -9 |
+| /home/xein/Documents/CPPTEST/Elevator/src/elevator.cpp       | C++      |         68 |         11 |         10 |         89 |
+| /home/xein/Documents/CPPTEST/Elevator/src/elevsystem.cpp     | C++      |         21 |          0 |          4 |         25 |
+| /home/xein/Documents/CPPTEST/Elevator/src/main.cpp           | C++      |         32 |          3 |          9 |         44 |
+| /home/xein/Documents/CPPTEST/Elevator/src/person.cpp         | C++      |         19 |          4 |          5 |         28 |
+| /home/xein/Documents/CPPTEST/Elevator/src/stimula.cpp        | C++      |         39 |          2 |          2 |         43 |
+| Total                                                        |          |        112 |          9 |          9 |        130 |
++--------------------------------------------------------------+----------+------------+------------+------------+------------+
