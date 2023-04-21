@@ -21,6 +21,7 @@ int main()
     ElevSystem ES;
 
     ES.setElev();                       // 将10个电梯放入电梯系统中
+    ES.setPeople(peopleNum);                     // 初始化电梯系统中的乘客数量
     ES.printElevStatus();               // 打印电梯系统中电梯的状态（初始）
 
     // 初始化乘客、乘客目标楼层、乘客到达的时间（秒）

@@ -13,7 +13,7 @@ void ElevSystem::setElev()
     {
         Elev newElev;
         newElev.setID("E" + to_string(i));
-        newElev.setDirection(1);
+        newElev.setDirection(0);
         newElev.setDestinationFloor();
         E.push_back(newElev);
     }
@@ -24,7 +24,8 @@ void ElevSystem::printElevStatus()
 {
     for (int i = 0; i < 10; i++)
     {
-        cout << E[i].getID() << " " << E[i].getDirection() << " 位于" << E[i].getFloor() << "层" << " 有 " << E[i].getPeople() << "位乘客" << endl;
+        cout << E[i].getID() << "\t" << E[i].getDirection() << "\t位于" << E[i].getFloor() << "层" << "\t有\t" << E[i].getPeople() << "\t位乘客-----" << E[i].getWaitlist() << "\t位正在等待" << endl;
+        E[i].printPeopleStatus();
     }
 }
 
@@ -56,7 +57,7 @@ void ElevSystem::processArrivedPeople()
     for(int i = 0; i < 10; i++)
     {
         // 处理已经到达目标楼层的乘客
-        E[i].ProcessArrivedPeople();
+        peopleNum -= E[i].ProcessArrivedPeople();
     }
 }
 
@@ -79,4 +80,22 @@ void ElevSystem::runElev()
         // 处理电梯的运行方向
         E[i].runElev();
     }
+}
+
+// 初始化乘客总数
+void ElevSystem::setPeople(int peopleNum)
+{
+    this->peopleNum = peopleNum;
+}
+
+// 获取乘客总数
+int ElevSystem::getPeople()
+{
+    return this->peopleNum;
+}
+
+// 打印乘客状态
+void ElevSystem::printPeopleStatus(int currenttime)
+{
+    cout << "----------当前时间：" << currenttime << "秒----------剩余乘客总数：" << peopleNum << "----------" << endl;
 }

@@ -31,19 +31,28 @@ string Elev::getDirection()
     {
         return "上升";
     }
-    else
+    else if(currentDirection == -1)
     {
         return "下降";
+    }
+    else
+    {
+        return "空载";
     }
 }
 
 // 设置新的方向
 void Elev::setNewDirection()
 {
-    // 如果目标楼层队列为空，则方向向下，回到第一层
+    // 如果目标楼层队列为空
     if (destinations.empty())
     {
-        currentDirection = -1;
+        // 如果电梯不在第一层，则方向为下降
+        if(currentFloor != 1)
+            currentDirection = -1;
+        // 如果电梯在第一层，则方向为停止
+        else
+            currentDirection = 0;
     }
     // 如果目标楼层不为空，由目标楼层的第一个楼层决定方向
     else
@@ -57,6 +66,7 @@ void Elev::setNewDirection()
             currentDirection = -1;
         }
     }
+
 }
 
 // 上升楼层
@@ -186,8 +196,9 @@ void Elev::ProcessWaitlist()
 }
 
 // 处理已经到达目标楼层的乘客
-void Elev::ProcessArrivedPeople()
+int Elev::ProcessArrivedPeople()
 {
+    int delNum = 0;     // 记录已经删除的乘客数量
     // 如果当前楼层为目标楼层之一，则将乘客删除
     if (destinationFloor[currentFloor] == 1)
     {
@@ -199,11 +210,24 @@ void Elev::ProcessArrivedPeople()
                 // 如果乘客的目标楼层等于当前楼层，则将乘客删除
                 people.erase(people.begin() + i);
                 currentPeople--;
+                delNum++;
             }
         }
         // 删除目标楼层队列中的该楼层
         destinations.remove(currentFloor);
     }
+    return delNum;
+}
+
+// 打印乘客状态
+void Elev::printPeopleStatus()
+{
+    cout << "电梯内乘客：";
+    for (int i = 0; i < people.size(); i++)
+    {
+        cout << "乘客 " << people[i].getId() <<  " -> " << people[i].getDestination() << " ";
+    }
+    cout << endl << endl;
 }
 
 // 运行电梯

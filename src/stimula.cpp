@@ -53,8 +53,10 @@ void startStimula(vector<Person> P, ElevSystem &ES, int &timeS)
     cout << "----------------------------------------" << endl;
     cout << "\t开始仿真" << endl;
     int currenttime = 0;
-    while(1)
+    while(ES.getPeople() != 0)
     {
+        // 打印乘客总量
+        ES.printPeopleStatus(currenttime);
         // 先打印电梯状态
         ES.printElevStatus();
 
@@ -81,4 +83,5 @@ void startStimula(vector<Person> P, ElevSystem &ES, int &timeS)
         currenttime++;
     }
     cout << "----------------------------------------" << endl;
+    cout << "-----------------仿真结束-----------------" << endl
 }
