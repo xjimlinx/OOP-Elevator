@@ -1,0 +1,12 @@
+"filename", "language", "C++", "Markdown", "comment", "blank", "total"
+"/home/xein/Documents/CPPTEST/Elevator/README.md", "Markdown", 0, 25, 0, 2, 27
+"/home/xein/Documents/CPPTEST/Elevator/include/elevator.hpp", "C++", 36, 0, 7, 8, 51
+"/home/xein/Documents/CPPTEST/Elevator/include/elevsystem.hpp", "C++", 17, 0, 0, 6, 23
+"/home/xein/Documents/CPPTEST/Elevator/include/person.hpp", "C++", 25, 0, 6, 9, 40
+"/home/xein/Documents/CPPTEST/Elevator/include/stimula.hpp", "C++", 13, 0, 0, 4, 17
+"/home/xein/Documents/CPPTEST/Elevator/src/elevator.cpp", "C++", 35, 0, 14, 4, 53
+"/home/xein/Documents/CPPTEST/Elevator/src/elevsystem.cpp", "C++", 24, 0, 10, 4, 38
+"/home/xein/Documents/CPPTEST/Elevator/src/main.cpp", "C++", 1, 0, 2, 2, 5
+"/home/xein/Documents/CPPTEST/Elevator/src/person.cpp", "C++", 33, 0, 7, 7, 47
+"/home/xein/Documents/CPPTEST/Elevator/src/stimula.cpp", "C++", 22, 0, 5, 3, 30
+"Total", "-", 206, 25, 51, 49, 331

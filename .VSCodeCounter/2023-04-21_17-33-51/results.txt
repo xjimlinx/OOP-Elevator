@@ -1,0 +1,38 @@
+Date : 2023-04-21 17:33:51
+Directory : /home/xein/Documents/CPPTEST/Elevator
+Total : 10 files,  498 codes, 91 comments, 85 blanks, all 674 lines
+
+Languages
++----------+------------+------------+------------+------------+------------+
+| language | files      | code       | comment    | blank      | total      |
++----------+------------+------------+------------+------------+------------+
+| C++      |          9 |        473 |         91 |         83 |        647 |
+| Markdown |          1 |         25 |          0 |          2 |         27 |
++----------+------------+------------+------------+------------+------------+
+
+Directories
++--------------------------------------------------------------+------------+------------+------------+------------+------------+
+| path                                                         | files      | code       | comment    | blank      | total      |
++--------------------------------------------------------------+------------+------------+------------+------------+------------+
+| .                                                            |         10 |        498 |         91 |         85 |        674 |
+| . (Files)                                                    |          1 |         25 |          0 |          2 |         27 |
+| include                                                      |          4 |        100 |         14 |         28 |        142 |
+| src                                                          |          5 |        373 |         77 |         55 |        505 |
++--------------------------------------------------------------+------------+------------+------------+------------+------------+
+
+Files
++--------------------------------------------------------------+----------+------------+------------+------------+------------+
+| filename                                                     | language | code       | comment    | blank      | total      |
++--------------------------------------------------------------+----------+------------+------------+------------+------------+
+| /home/xein/Documents/CPPTEST/Elevator/README.md              | Markdown |         25 |          0 |          2 |         27 |
+| /home/xein/Documents/CPPTEST/Elevator/include/elevator.hpp   | C++      |         43 |          8 |          9 |         60 |
+| /home/xein/Documents/CPPTEST/Elevator/include/elevsystem.hpp | C++      |         19 |          0 |          6 |         25 |
+| /home/xein/Documents/CPPTEST/Elevator/include/person.hpp     | C++      |         25 |          6 |          9 |         40 |
+| /home/xein/Documents/CPPTEST/Elevator/include/stimula.hpp    | C++      |         13 |          0 |          4 |         17 |
+| /home/xein/Documents/CPPTEST/Elevator/src/elevator.cpp       | C++      |        166 |         38 |         18 |        222 |
+| /home/xein/Documents/CPPTEST/Elevator/src/elevsystem.cpp     | C++      |         57 |         15 |         10 |         82 |
+| /home/xein/Documents/CPPTEST/Elevator/src/main.cpp           | C++      |         33 |          5 |         11 |         49 |
+| /home/xein/Documents/CPPTEST/Elevator/src/person.cpp         | C++      |         52 |         11 |         12 |         75 |
+| /home/xein/Documents/CPPTEST/Elevator/src/stimula.cpp        | C++      |         65 |          8 |          4 |         77 |
+| Total                                                        |          |        498 |         91 |         85 |        674 |
++--------------------------------------------------------------+----------+------------+------------+------------+------------+

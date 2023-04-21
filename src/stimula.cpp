@@ -1,8 +1,13 @@
-#include "stimula.hpp"
 #include <iostream>
+#include <vector>
+#include "stimula.hpp"
+#include "person.hpp"
+#include "elevsystem.hpp"
+#include <ostream>
+
 using namespace std;
 
-// 设置目标乘客数量与电梯运行时间
+// 设置目标乘客数量与游客加入的时间
 void stimulaSetVal(int &peopleNum, int &timeS)
 {
     while(1)
@@ -20,7 +25,7 @@ void stimulaSetVal(int &peopleNum, int &timeS)
     }
     while(1)
     {
-        cout << "请输入要仿真的电梯运行时间（1到10）: " << endl;
+        cout << "请输入要仿真的游客到达的时间范围（1到10）: " << endl;
         cin >> timeS;
         if (timeS >= 1 && timeS <= 10)
         {
@@ -36,8 +41,44 @@ void stimulaSetVal(int &peopleNum, int &timeS)
 // 打印目标乘客数量与目标运行时间信息
 void stimulaPrintVal(int peopleNum, int timeS)
 {
+    cout << "-------------------------------------------------" << endl;
+    cout << "\t初始化乘客数量: " << peopleNum << endl;
+    cout << "\t初始化乘客加入时间: " << timeS << endl;
+    cout << "-------------------------------------------------" << endl;
+}
+
+// 开始仿真
+void startStimula(vector<Person> P, ElevSystem &ES, int &timeS)
+{
     cout << "----------------------------------------" << endl;
-    cout << "\t初始化目标乘客数量: " << peopleNum << endl;
-    cout << "\t初始化目标电梯运行时间: " << timeS << endl;
+    cout << "\t开始仿真" << endl;
+    int currenttime = 0;
+    while(1)
+    {
+        // 先打印电梯状态
+        ES.printElevStatus();
+
+        // 处理waitlist中的乘客
+        ES.processWaitlist();
+
+        // 再处理新加入的乘客
+        for(int i=0;i<P.size();i++)
+        {
+            if(P[i].getJoinTime()==currenttime)
+            {
+                ES.joinPeople(P[i]);
+            }
+        }
+
+        // 处理到达目标楼层的乘客
+        ES.processArrivedPeople();
+
+        // 设置电梯新方向
+        ES.setNewDirection();
+
+        // 电梯运行1秒
+        ES.runElev();
+        currenttime++;
+    }
     cout << "----------------------------------------" << endl;
 }
