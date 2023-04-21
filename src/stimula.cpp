@@ -83,5 +83,5 @@ void startStimula(vector<Person> P, ElevSystem &ES, int &timeS)
         currenttime++;
     }
     cout << "----------------------------------------" << endl;
-    cout << "-----------------仿真结束-----------------" << endl
+    cout << "-----------------仿真结束-----------------" << endl;
 }

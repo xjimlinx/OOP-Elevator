@@ -1,7 +1,0 @@
-"filename", "language", "Markdown", "C++", "comment", "blank", "total"
-"/home/xein/Documents/CPPTEST/Elevator/README.md", "Markdown", 26, 0, 0, 1, 27
-"/home/xein/Documents/CPPTEST/Elevator/include/elevator.hpp", "C++", 0, 31, 7, 8, 46
-"/home/xein/Documents/CPPTEST/Elevator/include/elevsystem.hpp", "C++", 0, 14, 0, 6, 20
-"/home/xein/Documents/CPPTEST/Elevator/include/person.hpp", "C++", 0, 16, 4, 4, 24
-"/home/xein/Documents/CPPTEST/Elevator/include/stimula.hpp", "C++", 0, 6, 0, 3, 9
-"Total", "-", 26, 67, 11, 22, 126
