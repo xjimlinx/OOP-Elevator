@@ -1,9 +1,0 @@
-"filename", "language", "C++", "comment", "blank", "total"
-"/home/xein/Documents/CPPTEST/Elevator/include/elevator.hpp", "C++", 1, 0, 0, 1
-"/home/xein/Documents/CPPTEST/Elevator/include/elevsystem.hpp", "C++", 4, 0, 0, 4
-"/home/xein/Documents/CPPTEST/Elevator/src/elevator.cpp", "C++", 19, 3, 2, 24
-"/home/xein/Documents/CPPTEST/Elevator/src/elevsystem.cpp", "C++", 13, 3, 3, 19
-"/home/xein/Documents/CPPTEST/Elevator/src/main.cpp", "C++", 1, -1, -2, -2
-"/home/xein/Documents/CPPTEST/Elevator/src/person.cpp", "C++", 4, 1, 0, 5
-"/home/xein/Documents/CPPTEST/Elevator/src/stimula.cpp", "C++", 3, 2, 5, 10
-"Total", "-", 45, 8, 8, 61
