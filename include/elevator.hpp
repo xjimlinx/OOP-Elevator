@@ -23,7 +23,7 @@ class Elev
         int currentWaitlist = 0;        // 当前等待乘客量 初始化为0
         int currentFloor = 1;           // 当前楼层 初始化为1
         int currentDirection = 0;       // 当前运行方向 初始化为0 即空载
-        int destinationFloor[40];       // 目标楼层 有40层，初始化为0
+        int destinationFloor[41];       // 目标楼层 有40层，初始化为0,这里的设置为41是为了方便后面的代码
         int currentTime = 1;            // 每层用时 设无论有没有乘客，电梯都会以1秒一层的速度运行
 
     public:

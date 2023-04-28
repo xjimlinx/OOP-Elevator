@@ -10,7 +10,7 @@ using namespace std;
 // 设置目标乘客数量与游客加入的时间
 void stimulaSetVal(int &peopleNum, int &timeS)
 {
-    while(1)
+    while (1)
     {
         cout << "请输入要仿真的人数（1到1000）: " << endl;
         cin >> peopleNum;
@@ -23,7 +23,7 @@ void stimulaSetVal(int &peopleNum, int &timeS)
             cout << "输入错误，请重新输入" << endl;
         }
     }
-    while(1)
+    while (1)
     {
         cout << "请输入要仿真的游客到达的时间范围（1到10）: " << endl;
         cin >> timeS;
@@ -53,7 +53,7 @@ void startStimula(vector<Person> P, ElevSystem &ES, int &timeS)
     cout << "----------------------------------------" << endl;
     cout << "\t开始仿真" << endl;
     int currenttime = 0;
-    while(ES.getPeople() != 0)
+    while (ES.getPeople() != 0)
     {
         // 打印乘客总量
         ES.printPeopleStatus(currenttime);
@@ -64,9 +64,9 @@ void startStimula(vector<Person> P, ElevSystem &ES, int &timeS)
         ES.processWaitlist();
 
         // 再处理新加入的乘客
-        for(int i=0;i<P.size();i++)
+        for (int i = 0; i < P.size(); i++)
         {
-            if(P[i].getJoinTime()==currenttime)
+            if (P[i].getJoinTime() == currenttime)
             {
                 ES.joinPeople(P[i]);
             }
@@ -82,6 +82,13 @@ void startStimula(vector<Person> P, ElevSystem &ES, int &timeS)
         ES.runElev();
         currenttime++;
     }
+
+    // 进行最后一次打印，即打印电梯运行结束后的状态
+    // 打印乘客总量
+    ES.printPeopleStatus(currenttime);
+    // 先打印电梯状态
+    ES.printElevStatus();
+
     cout << "----------------------------------------" << endl;
     cout << "-----------------仿真结束-----------------" << endl;
 }

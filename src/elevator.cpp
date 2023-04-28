@@ -7,7 +7,7 @@ using namespace std;
 // 初始化id
 void Elev::setID(string id)
 {
-    this->id = id;  // 这里用this->id是为了区分局部变量id和成员变量id
+    this->id = id; // 这里用this->id是为了区分局部变量id和成员变量id
     // 因为this是指向当前对象的指针，所以this只能用->来访问成员变量，而不能用.来访问成员变量
 }
 
@@ -31,7 +31,7 @@ string Elev::getDirection()
     {
         return "上升";
     }
-    else if(currentDirection == -1)
+    else if (currentDirection == -1)
     {
         return "下降";
     }
@@ -48,9 +48,9 @@ void Elev::setNewDirection()
     if (destinations.empty())
     {
         // 如果电梯不在第一层，则方向为下降
-        if(currentFloor != 1)
+        if (currentFloor != 1)
             currentDirection = -1;
-        // 如果电梯在第一层，则方向为停止
+        // 如果电梯在第一层，则方向为空载
         else
             currentDirection = 0;
     }
@@ -66,7 +66,6 @@ void Elev::setNewDirection()
             currentDirection = -1;
         }
     }
-
 }
 
 // 上升楼层
@@ -96,7 +95,7 @@ int Elev::getFloor()
 // 初始化目标楼层
 void Elev::setDestinationFloor()
 {
-    for (int i = 0; i < 40; i++)
+    for (int i = 0; i <= 40; i++)
     {
         destinationFloor[i] = 0;
     }
@@ -106,7 +105,7 @@ void Elev::setDestinationFloor()
 void Elev::addDestination(int destination)
 {
     // 目标楼层队列中有该楼层，不做任何操作
-    if(destinationFloor[destination] == 1)
+    if (destinationFloor[destination] == 1)
     {
         return;
     }
@@ -167,14 +166,14 @@ int Elev::getWaitlist()
 // 处理等待乘客
 void Elev::ProcessWaitlist()
 {
-    while(1)
+    while (1)
     {
-        if(waitlist.size() == 0)
+        if (waitlist.size() == 0)
         {
             // 等待队列为空
             break;
         }
-        else if(currentPeople == maxPeople)
+        else if (currentPeople == maxPeople)
         {
             // 电梯人数已满
             break;
@@ -198,12 +197,14 @@ void Elev::ProcessWaitlist()
 // 处理已经到达目标楼层的乘客
 int Elev::ProcessArrivedPeople()
 {
-    int delNum = 0;     // 记录已经删除的乘客数量
+    int i;
+    int delNum = 0; // 记录已经删除的乘客数量
     // 如果当前楼层为目标楼层之一，则将乘客删除
     if (destinationFloor[currentFloor] == 1)
     {
         destinationFloor[currentFloor] = 0;
-        for (int i = 0; i < people.size(); i++)
+        i = 0;
+        while(i<people.size())
         {
             if (people[i].getDestination() == currentFloor)
             {
@@ -211,6 +212,10 @@ int Elev::ProcessArrivedPeople()
                 people.erase(people.begin() + i);
                 currentPeople--;
                 delNum++;
+            }
+            else
+            {
+                i++;
             }
         }
         // 删除目标楼层队列中的该楼层
@@ -225,9 +230,10 @@ void Elev::printPeopleStatus()
     cout << "电梯内乘客：";
     for (int i = 0; i < people.size(); i++)
     {
-        cout << "乘客 " << people[i].getId() <<  " -> " << people[i].getDestination() << " ";
+        cout << "乘客 " << people[i].getId() << " -> " << people[i].getDestination() << " ";
     }
-    cout << endl << endl;
+    cout << endl
+         << endl;
 }
 
 // 运行电梯
