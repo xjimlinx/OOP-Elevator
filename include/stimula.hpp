@@ -12,6 +12,6 @@ using namespace std;
 
 void stimulaSetVal(int &peopleNumber, int &timeS);
 void stimulaPrintVal(int peopleNumber, int timeS);
-void startStimula(vector<Person> P, ElevSystem &ES, int &timeS);
+void startStimula(ElevSystem &ES, int &timeS);
 
 #endif // !

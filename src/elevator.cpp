@@ -1,8 +1,28 @@
 #include <iostream>
 #include <vector>
+#include <cstdlib>
 #include "person.hpp"
 #include "elevator.hpp"
 using namespace std;
+
+void PushPeople(PeopleArray &peopleArray, Person &person)
+{
+    int i = peopleArray.P.size();
+    // 将person的地址放入peopleArray中
+    peopleArray.P.push_back(&person);
+}
+
+// void PopPeople(PeopleArray &peopleArray, int index)
+// {
+//     // 弹出指定的person
+//     for(int i = 0; i < peopleArray.P.size();i++)
+//     {
+//         if(peopleArray.P[i]->getId() == index)
+//         {
+//             peopleArray.P.erase(peopleArray.P.begin() + i);
+//         }
+//     }
+// }
 
 // 初始化id
 void Elev::setID(string id)
@@ -101,6 +121,15 @@ void Elev::setDestinationFloor()
     }
 }
 
+// 刷新每个乘客的当前楼层
+void Elev::refreshFloor()
+{
+    for (int i = 0; i < currentPeople; i++)
+    {
+        (peopleArray.P[i])->setCurrentFloor(currentFloor);
+    }
+}
+
 // 添加目标楼层
 void Elev::addDestination(int destination)
 {
@@ -120,32 +149,36 @@ void Elev::addDestination(int destination)
 // 添加乘客
 void Elev::AddPeople(Person &person)
 {
-
-    // 注意：在每一次刷新时，先将等待队列中的乘客加入电梯，再将新乘客加入电梯
-    // 如果电梯不在第一层或者电梯人数已满，则将乘客加入等待队列
-    if (currentFloor != 1 || currentPeople == maxPeople)
+    // 如果电梯在乘客所在楼层且人数未满，则将乘客加入电梯
+    if (currentFloor == person.getCurrentFloor() && currentPeople < maxPeople)
     {
-        waitlist.push_back(person);
-        currentWaitlist++;
-        return;
-    }
-    // 如果电梯在第一层且电梯人数未满，则将乘客加入电梯
-    else
-    {
-        people.push_back(person);
+        // people.push_back(person);
+        PushPeople(peopleArray, person);
         currentPeople++;
         addDestination(person.getDestination());
+    }
+    // 如果电梯不在乘客所在楼层或者电梯人数已满，
+    // 则将乘客加入等待队列，并将乘客的等待标志置为1
+    // 同时将乘客的所在楼层加入目标楼层队列
+    else
+    {
+        // waitlist.push_back(person);
+        PushPeople(waitlistArray, person);
+        person.waitlistFlag = 1;
+        currentWaitlist++;
+        addDestination(person.getCurrentFloor());
     }
 }
 
 // 删除乘客
 void Elev::RemovePeople(Person &person)
 {
-    for (int i = 0; i < people.size(); i++)
+    for (int i = 0; i < peopleArray.P.size(); i++)
     {
-        if (people[i].getId() == person.getId())
+        if (peopleArray.P[i]->getId() == person.getId())
         {
-            people.erase(people.begin() + i);
+            //TODO:注意这里可能有问题
+            peopleArray.P.erase(peopleArray.P.begin() + i);
             currentPeople--;
         }
     }
@@ -166,52 +199,60 @@ int Elev::getWaitlist()
 // 处理等待乘客
 void Elev::ProcessWaitlist()
 {
-    while (1)
+    int i = 0;
+    // 遍历等待队列，如果电梯位于乘客所在楼层，并且电梯认为满，则将乘客加入电梯
+    while (i < waitlistArray.P.size() && waitlistArray.P.size()!=0 && currentPeople != maxPeople)
     {
-        if (waitlist.size() == 0)
+        if (waitlistArray.P[i]->getCurrentFloor() == currentFloor)
         {
-            // 等待队列为空
-            break;
-        }
-        else if (currentPeople == maxPeople)
-        {
-            // 电梯人数已满
-            break;
+            // 将其waitlistFlag设置为0
+            waitlistArray.P[i]->waitlistFlag = 0;
+            // 将其isinFlag设置为1
+            waitlistArray.P[i]->isinFlag = 1;
+            // 将等待队列中的第一个乘客加入电梯
+            peopleArray.P.push_back(waitlistArray.P[i]);
+            addDestination(waitlistArray.P[i]->getDestination());
+            currentPeople++;
+            // 将等待队列中的第一个乘客删除
+            waitlistArray.P.erase(waitlistArray.P.begin() + i);
+            currentWaitlist--;
         }
         else
         {
-            // 将等待队列中的第一个乘客加入电梯
-            people.push_back(waitlist[0]);
-            addDestination(waitlist[0].getDestination());
-            currentPeople++;
-            // 将等待队列中的第一个乘客删除
-            waitlist.erase(waitlist.begin());
-            currentWaitlist--;
-            // erase 是删除指定位置的元素，erase(begin()+i)是删除第i个元素
-            // 并且erase是释放内存的，所以erase后，后面的元素会向前移动
-            // 而在之前，已经将第一个元素加入电梯，两个元素是独立的，所以不会出现问题
+            i++;
         }
     }
 }
 
 // 处理已经到达目标楼层的乘客
-int Elev::ProcessArrivedPeople()
+void Elev::ProcessArrivedPeople()
 {
     int i;
-    int delNum = 0; // 记录已经删除的乘客数量
-    // 如果当前楼层为目标楼层之一，则将乘客删除
+    int finishedNum = 0; // 记录已经完成乘梯的乘客数量
+    // 如果乘客到达目标楼层了并且如果乘客的calledtimes==maxtimes，则将乘客删除
     if (destinationFloor[currentFloor] == 1)
     {
         destinationFloor[currentFloor] = 0;
         i = 0;
-        while(i<people.size())
+        while(i<peopleArray.P.size())
         {
-            if (people[i].getDestination() == currentFloor)
+            if (peopleArray.P[i]->getDestination() == currentFloor)
             {
                 // 如果乘客的目标楼层等于当前楼层，则将乘客删除
-                people.erase(people.begin() + i);
+                // 并为乘客生成下一次请求
+                peopleArray.P[i]->nextCall();
+                // 将乘客的当前楼层设置为当前楼层
+                peopleArray.P[i]->setCurrentFloor(currentFloor);
+                peopleArray.P[i]->oldFlag = 1;
+                peopleArray.P[i]->isinFlag = 0;
+                // 如果乘客到达的目标楼层为1楼
+                // 且乘客的calledtimes==maxtimes，则将乘客总的计数-1
+                if (currentFloor == 1 && peopleArray.P[i]->getCalledTimes() == peopleArray.P[i]->getCallTimes())
+                {
+                    peopleArray.P[i]->finishFlag = 1;
+                }
+                peopleArray.P.erase(peopleArray.P.begin() + i);
                 currentPeople--;
-                delNum++;
             }
             else
             {
@@ -221,16 +262,15 @@ int Elev::ProcessArrivedPeople()
         // 删除目标楼层队列中的该楼层
         destinations.remove(currentFloor);
     }
-    return delNum;
 }
 
 // 打印乘客状态
 void Elev::printPeopleStatus()
 {
     cout << "电梯内乘客：";
-    for (int i = 0; i < people.size(); i++)
+    for (int i = 0; i < peopleArray.P.size(); i++)
     {
-        cout << "乘客 " << people[i].getId() << " -> " << people[i].getDestination() << " ";
+        cout << "乘客 " << peopleArray.P[i]->getId() << " -> " << peopleArray.P[i]->getDestination() << " ";
     }
     cout << endl
          << endl;

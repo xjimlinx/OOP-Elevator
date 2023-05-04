@@ -27,7 +27,6 @@ int main()
     // 初始化乘客、乘客目标楼层、乘客到达的时间（秒）
     vector<Person> P;                   // 乘客数组
 
-
     cout << "-------------------------------------------------" << endl;
     for (int i = 0; i < peopleNum; i++)
     {
@@ -35,13 +34,17 @@ int main()
         newPerson.setId(i+1);               // 设置乘客id
         newPerson.setDestination();         // 设置乘客目标楼层
         newPerson.setJoinTime(timeS);       // 设置乘客加入时间
-        newPerson.setElev();             // 选择电梯
+        newPerson.setElev();                // 选择电梯
+        newPerson.setCallTimes();           // 设置乘客呼叫电梯次数
         P.push_back(newPerson);             // 将乘客放入乘客数组中
         newPerson.printPersonInfo();        // 打印乘客目标楼层
     }
     cout << "-------------------------------------------------" << endl;
+    // 将乘客加入到电梯系统中
+    ES.setPeopleContainer(P);
+
     // 模拟时间，每一秒更新一次，直到所有乘客到达目标楼层
-    startStimula(P, ES, timeS);
+    startStimula(ES, timeS);
 
     return 0;
 }

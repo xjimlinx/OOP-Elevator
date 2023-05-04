@@ -8,14 +8,34 @@
 #define ELEVATOR_H
 
 using namespace std;
+
+// New:
+
+typedef struct PNode{
+    // 定义乘客数组，用于存放乘客的地址
+    vector <Person*> P;
+} PeopleArray;
+
+void PushPeople(PeopleArray &peopleArray, Person &person);
+
+// End New
+
 class Elev
 {
     private:
         // 基本属性：限制
         string id;                      // 电梯编号 从E0到E9
         int maxPeople = 15;             // 最大载客量
-        vector<Person> people;          // 乘客
-        vector<Person> waitlist;        // 等待乘客
+
+        // Change:
+
+        // vector<Person> people;          // 乘客
+        PeopleArray peopleArray;        // 乘客数组
+        // vector<Person> waitlist;        // 等待乘客
+        PeopleArray waitlistArray;      // 等待乘客数组
+
+        // End Change
+
         list <int> destinations;        // 目标楼层队列
 
         // 基本属性：状态
@@ -44,6 +64,7 @@ class Elev
         int getFloor();                       // 获取当前楼层
         void setDestinationFloor();           // 初始化目标楼层
         void addDestination(int destination); // 添加目标楼层
+        void refreshFloor();                  // 刷新当前楼层
 
         // 方法组：people
         void AddPeople(Person &person);       // 添加乘客
@@ -51,7 +72,7 @@ class Elev
         int getPeople();                      // 获取当前载客量
         int getWaitlist();                    // 获取当前等待乘客量
         void ProcessWaitlist();               // 处理等待乘客
-        int ProcessArrivedPeople();           // 处理到达目标楼层的乘客
+        void ProcessArrivedPeople();           // 处理到达目标楼层的乘客
         void printPeopleStatus();             // 打印乘客状态
 
         // 方法：运行电梯

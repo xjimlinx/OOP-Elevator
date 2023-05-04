@@ -48,32 +48,30 @@ void stimulaPrintVal(int peopleNum, int timeS)
 }
 
 // 开始仿真
-void startStimula(vector<Person> P, ElevSystem &ES, int &timeS)
+void startStimula(ElevSystem &ES, int &timeS)
 {
     cout << "----------------------------------------" << endl;
     cout << "\t开始仿真" << endl;
     int currenttime = 0;
-    while (ES.getPeople() != 0)
+    while (ES.getPeople() != ES.getFinishedNum())
     {
         // 打印乘客总量
         ES.printPeopleStatus(currenttime);
-        // 先打印电梯状态
+
+        // 打印电梯状态
         ES.printElevStatus();
+
+        // 处理到达目标楼层的乘客
+        ES.processArrivedPeople();
 
         // 处理waitlist中的乘客
         ES.processWaitlist();
 
-        // 再处理新加入的乘客
-        for (int i = 0; i < P.size(); i++)
-        {
-            if (P[i].getJoinTime() == currenttime)
-            {
-                ES.joinPeople(P[i]);
-            }
-        }
+        // 处理未进入电梯的乘客
+        ES.processPeople();
 
-        // 处理到达目标楼层的乘客
-        ES.processArrivedPeople();
+        // 刷新每位乘客的楼层
+        ES.refreshFloor();
 
         // 设置电梯新方向
         ES.setNewDirection();
@@ -81,6 +79,7 @@ void startStimula(vector<Person> P, ElevSystem &ES, int &timeS)
         // 电梯运行1秒
         ES.runElev();
         currenttime++;
+        ES.currentTime = currenttime;
     }
 
     // 进行最后一次打印，即打印电梯运行结束后的状态
@@ -89,6 +88,6 @@ void startStimula(vector<Person> P, ElevSystem &ES, int &timeS)
     // 先打印电梯状态
     ES.printElevStatus();
 
-    cout << "----------------------------------------" << endl;
+    cout << "------------------------------------------" << endl;
     cout << "-----------------仿真结束-----------------" << endl;
 }
