@@ -15,6 +15,7 @@ int main()
 
     // 设置乘客数量、乘客加入的时间
     stimulaSetVal(peopleNum, timeS);
+
     stimulaPrintVal(peopleNum, timeS);
 
     // 初始化电梯系统
