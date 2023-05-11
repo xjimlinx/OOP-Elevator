@@ -4,7 +4,6 @@
 #include "elevsystem.hpp"
 #include "stimula.hpp"
 #include <vector>
-#include <algorithm>
 
 using namespace std;
 
