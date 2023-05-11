@@ -65,6 +65,9 @@ class Person
         void setCurrentFloor(int floor);
         int getCurrentFloor();
         void refreshFloor(int floor);
+
+        // 方法：第三次添加、选择电梯
+        void chooseElev();
 };
 
 #endif

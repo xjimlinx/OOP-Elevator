@@ -134,7 +134,7 @@ void Person::nextCall()
     {
         // 如果还有请求次数，重新生成下一次要进行的请求
         setDestination();
-        setElev();
+        chooseElev();
         addCalledTimes();
         setWaitingTime();
     }
@@ -162,4 +162,34 @@ int Person::getCurrentFloor()
 void Person::refreshFloor(int floor)
 {
     currentFloor = floor;
+}
+
+// 根据乘客信息选择电梯
+void Person::chooseElev()
+{
+    // 可以坐E2、E3的情况 1、25～40层
+    if((getCurrentFloor()==1||getCurrentFloor()>=25)&&(getDestination()>=25||getDestination()==1))
+    {
+        elevNum = rand() % 2 + 2;
+    }
+    // 可以坐E4、E5的情况 1~25层
+    else if((getCurrentFloor()<=25&&getDestination()<=25))
+    {
+        elevNum = rand() % 2 + 4;
+    }
+    // 可以坐E6、E7的情况 偶数层
+    else if((getCurrentFloor()==1&&getDestination()%2==0) || getCurrentFloor()%2==0&&(getDestination()==1||getDestination()%2==0))
+    {
+        elevNum = rand() % 2 + 6;
+    }
+    // 可以坐E8、E9的情况 奇数层
+    else if(getCurrentFloor()%2!=0 && getDestination() %2 != 0)
+    {
+        elevNum = rand() % 2 + 8;
+    }
+    // 只可以坐E0、E1的情况
+    else
+    {
+        elevNum = rand() % 2;
+    }
 }

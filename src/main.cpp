@@ -4,6 +4,7 @@
 #include "elevsystem.hpp"
 #include "stimula.hpp"
 #include <vector>
+#include <algorithm>
 
 using namespace std;
 
@@ -34,7 +35,7 @@ int main()
         newPerson.setId(i+1);               // 设置乘客id
         newPerson.setDestination();         // 设置乘客目标楼层
         newPerson.setJoinTime(timeS);       // 设置乘客加入时间
-        newPerson.setElev();                // 选择电梯
+        newPerson.chooseElev();                // 选择电梯
         newPerson.setCallTimes();           // 设置乘客呼叫电梯次数
         P.push_back(newPerson);             // 将乘客放入乘客数组中
         newPerson.printPersonInfo();        // 打印乘客目标楼层
