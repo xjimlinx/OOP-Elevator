@@ -12,18 +12,6 @@ void PushPeople(PeopleArray &peopleArray, Person &person)
     peopleArray.P.push_back(&person);
 }
 
-// void PopPeople(PeopleArray &peopleArray, int index)
-// {
-//     // 弹出指定的person
-//     for(int i = 0; i < peopleArray.P.size();i++)
-//     {
-//         if(peopleArray.P[i]->getId() == index)
-//         {
-//             peopleArray.P.erase(peopleArray.P.begin() + i);
-//         }
-//     }
-// }
-
 // 初始化id
 void Elev::setID(string id)
 {
@@ -154,7 +142,11 @@ void Elev::AddPeople(Person &person)
     {
         // people.push_back(person);
         PushPeople(peopleArray, person);
+        person.isinFlag = 1;
+        person.oldFlag = 1;
+        person.waitingTimes.push_back(currentTime - person.getPreTime());
         currentPeople++;
+        ptimes++;
         addDestination(person.getDestination());
     }
     // 如果电梯不在乘客所在楼层或者电梯人数已满，
@@ -165,6 +157,7 @@ void Elev::AddPeople(Person &person)
         // waitlist.push_back(person);
         PushPeople(waitlistArray, person);
         person.waitlistFlag = 1;
+        person.oldFlag = 1;
         currentWaitlist++;
         addDestination(person.getCurrentFloor());
     }
@@ -200,7 +193,7 @@ int Elev::getWaitlist()
 void Elev::ProcessWaitlist()
 {
     int i = 0;
-    // 遍历等待队列，如果电梯位于乘客所在楼层，并且电梯认为满，则将乘客加入电梯
+    // 遍历等待队列，如果电梯位于乘客所在楼层，并且电梯人数未满，则将乘客加入电梯
     while (i < waitlistArray.P.size() && waitlistArray.P.size()!=0 && currentPeople != maxPeople)
     {
         if (waitlistArray.P[i]->getCurrentFloor() == currentFloor)
@@ -210,9 +203,11 @@ void Elev::ProcessWaitlist()
             // 将其isinFlag设置为1
             waitlistArray.P[i]->isinFlag = 1;
             // 将等待队列中的第一个乘客加入电梯
+            waitlistArray.P[i]->waitingTimes.push_back(currentTime - waitlistArray.P[i]->getPreTime());
             peopleArray.P.push_back(waitlistArray.P[i]);
             addDestination(waitlistArray.P[i]->getDestination());
             currentPeople++;
+            ptimes++;
             // 将等待队列中的第一个乘客删除
             waitlistArray.P.erase(waitlistArray.P.begin() + i);
             currentWaitlist--;
@@ -239,10 +234,10 @@ void Elev::ProcessArrivedPeople()
             if (peopleArray.P[i]->getDestination() == currentFloor)
             {
                 // 如果乘客的目标楼层等于当前楼层，则将乘客删除
-                // 并为乘客生成下一次请求
-                peopleArray.P[i]->nextCall();
                 // 将乘客的当前楼层设置为当前楼层
                 peopleArray.P[i]->setCurrentFloor(currentFloor);
+                // 并为乘客生成下一次请求
+                peopleArray.P[i]->nextCall(currentTime);
                 peopleArray.P[i]->oldFlag = 1;
                 peopleArray.P[i]->isinFlag = 0;
                 // 如果乘客到达的目标楼层为1楼
@@ -283,10 +278,33 @@ void Elev::runElev()
     if (currentDirection == 1)
     {
         UpFloor();
+        runTime++;
     }
     // 如果方向为下降
-    else
+    else if(currentDirection == -1)
     {
         DownFloor();
+        runTime++;
     }
+    // 如果为静止
+    else
+        freeTime++;
+}
+
+// 刷新时间
+void Elev::refreshTime(int time)
+{
+    currentTime = time;
+}
+
+// 打印电梯运行与空闲时间
+void Elev::PrintElevFinished()
+{
+    cout << id << "运行时间：" << runTime << "\t秒\t空闲时间：" << freeTime << "\t秒" << endl;
+}
+
+// 打印运输人次
+void Elev::PrintElevPtimes()
+{
+    cout << id << "运输人次：" << ptimes << endl;
 }

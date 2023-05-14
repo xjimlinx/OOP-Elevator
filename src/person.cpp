@@ -21,10 +21,10 @@ int Person::getId()
 void Person::setDestination()
 {
     destinationFloor = rand() % 40 + 1;
-    // 目标楼层不为1
-    if (destinationFloor == 1)
+    // 目标楼层不为1 或者等于当前楼层
+    while(destinationFloor == 1 || destinationFloor == currentFloor)
     {
-        destinationFloor = 2;
+        destinationFloor = rand() % 40 + 1;
     }
 }
 
@@ -56,6 +56,8 @@ int Person::getElev()
 void Person::setJoinTime(int timeS)
 {
     joinTime = rand() % (timeS * 60) + 1;
+    // 第一个“上次时间”是加入时间
+    preTime = joinTime;
 }
 
 // 获取乘客加入时间
@@ -127,8 +129,14 @@ void Person::delWaitingTime()
         waitingTime--;
 }
 
+// 获取上一次发出请求时间
+int Person::getPreTime()
+{
+    return preTime;
+}
+
 // 重新生成下一次要进行的请求
-void Person::nextCall()
+void Person::nextCall(int currentTime)
 {
     if(calledtimes < maxcalltimes)
     {
@@ -142,8 +150,10 @@ void Person::nextCall()
     {
         // 如果没有请求次数，将目标楼层设置为1
         destinationFloor = 1;
+        chooseElev();
         setWaitingTime();
     }
+    preTime = currentTime + waitingTime;
 }
 
 // 设置乘客的当前楼层
@@ -191,5 +201,18 @@ void Person::chooseElev()
     else
     {
         elevNum = rand() % 2;
+    }
+}
+
+void Person::PrintFinished()
+{
+
+    // 打印乘客发出乘梯要求后的等待时间
+    // 如何计算？
+    // 用加入电梯的时间减去上一次发出要求的时间
+    // 统计在Elev类中执行
+    for(int i=0;i<waitingTimes.size();i++)
+    {
+        cout << "乘客" << id << "\t第" << i+1 << "次: " << "等待\t" << waitingTimes[i] << "秒"<< endl;
     }
 }

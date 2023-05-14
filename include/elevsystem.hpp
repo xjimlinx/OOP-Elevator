@@ -18,6 +18,7 @@ class ElevSystem
         vector<Person> P;               // 乘客
         int currentTime = 0;            // 当前时间
         void setElev();                 // 初始化电梯
+        void refreshTime();             // 刷新电梯时间
         void printElevStatus();         // 打印电梯状态
         void joinPeople(Person &person);// 乘客加入电梯
         void processNewPeople();        // 处理新乘客
@@ -33,6 +34,9 @@ class ElevSystem
         int getPeople();                             // 获取乘客总数
         void printPeopleStatus(int currenttime);     // 打印乘客状态
         int getFinishedNum();                       // 获取已完成乘客数
+
+        void PrintElevFinished();                   // 打印电梯运行与空闲时间
+        void PrintElevPtimes();                     // 打印电梯运行乘客人次
 };
 
 #endif // !

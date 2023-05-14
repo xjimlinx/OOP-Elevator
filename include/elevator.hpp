@@ -29,9 +29,7 @@ class Elev
 
         // Change:
 
-        // vector<Person> people;          // 乘客
         PeopleArray peopleArray;        // 乘客数组
-        // vector<Person> waitlist;        // 等待乘客
         PeopleArray waitlistArray;      // 等待乘客数组
 
         // End Change
@@ -44,9 +42,13 @@ class Elev
         int currentFloor = 1;           // 当前楼层 初始化为1
         int currentDirection = 0;       // 当前运行方向 初始化为0 即空载
         int destinationFloor[41];       // 目标楼层 有40层，初始化为0,这里的设置为41是为了方便后面的代码
-        int currentTime = 1;            // 每层用时 设无论有没有乘客，电梯都会以1秒一层的速度运行
+        int currentSpeed = 1;           // 每层用时 设无论有没有乘客，电梯都会以1秒一层的速度运行
+        int currentTime;                // 当前时间
+        int runTime = 0;                    // 运行时间
+        int freeTime = 0;                   // 空闲时间
 
     public:
+        int ptimes = 0;                     // 运行乘客人次统计
         // 基本方法
 
         // 方法对：id
@@ -77,6 +79,11 @@ class Elev
 
         // 方法：运行电梯
         void runElev();
+        void refreshTime(int time);
+
+        // 方法：结束打印统计
+        void PrintElevFinished();               // 打印电梯运行与空闲时间
+        void PrintElevPtimes();                 // 打印电梯运行人次统计
 };
 
 #endif

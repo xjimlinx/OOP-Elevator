@@ -71,22 +71,27 @@ void ElevSystem::processPeople()
             // 如果不在waitlist中
             if(P[i].waitlistFlag == 0)
             {
-                // 先对waitingtime进行减1操作
-                P[i].delWaitingTime();
                 // 如果waitingtime为0，则将乘客加入电梯或者电梯的waitlist
                 if (P[i].getWaitingTime() == 0)
                 {
                     joinPeople(P[i]);
                 }
+                // 对waitingtime进行减1操作
+                P[i].delWaitingTime();
             }
         }
         // 如果是新乘客
-        else
+        else if(P[i].oldFlag == 0)
         {
             if (P[i].getJoinTime() == currentTime && P[i].getCalledTimes() == 0)
             {
                 joinPeople(P[i]);
             }
+        }
+        //  已经完成的乘客
+        else
+        {
+            ;
         }
 
     }
@@ -139,6 +144,15 @@ void ElevSystem::runElev()
     }
 }
 
+// 刷新电梯时间
+void ElevSystem::refreshTime()
+{
+    for(int i = 0; i < 10; i++)
+    {
+        E[i].refreshTime(currentTime);
+    }
+}
+
 // 初始化乘客总数
 void ElevSystem::setPeople(int peopleNum)
 {
@@ -175,4 +189,30 @@ int ElevSystem::getFinishedNum()
         }
     }
     return finishedNum;
+}
+
+
+// 打印电梯运行与空闲时间
+void ElevSystem::PrintElevFinished()
+{
+    for (int i = 0; i < 10; i++)
+    {
+        E[i].PrintElevFinished();
+    }
+}
+
+// 打印电梯运输人次
+void ElevSystem::PrintElevPtimes()
+{
+    int sumPtimes = 0;
+    for (int i = 0; i < 10; i++)
+    {
+        E[i].PrintElevPtimes();
+        sumPtimes += E[i].ptimes;
+    }
+    cout << endl;
+
+    cout << "电梯运行总人次" << sumPtimes << endl;
+
+    cout << endl;
 }

@@ -4,6 +4,8 @@
 #include "person.hpp"
 #include "elevsystem.hpp"
 #include <ostream>
+#include <fstream>
+#include <string>
 
 using namespace std;
 
@@ -50,6 +52,10 @@ void stimulaPrintVal(int peopleNum, int timeS)
 // 开始仿真
 void startStimula(ElevSystem &ES, int &timeS)
 {
+    // string file_name;
+    // file_name = "./log.txt";
+    // ofstream outfile(file_name);
+
     cout << "----------------------------------------" << endl;
     cout << "\t开始仿真" << endl;
     int currenttime = 0;
@@ -79,7 +85,12 @@ void startStimula(ElevSystem &ES, int &timeS)
         // 电梯运行1秒
         ES.runElev();
         currenttime++;
+
         ES.currentTime = currenttime;
+
+        // 刷新电梯时间
+        ES.refreshTime();
+
     }
 
     // 进行最后一次打印，即打印电梯运行结束后的状态
@@ -90,4 +101,36 @@ void startStimula(ElevSystem &ES, int &timeS)
 
     cout << "------------------------------------------" << endl;
     cout << "-----------------仿真结束-----------------" << endl;
+    cout << "------------------------------------------" << endl << endl;
+
+
+
+    cout << "------------------------------------------" << endl;
+    cout << "!!!!!!!!!!!!!!!!!仿真结果!!!!!!!!!!!!!!!!!" << endl;
+    cout << "------------------------------------------" << endl << endl;
+
+    cout << "------------------------------------------" << endl;
+    cout << "---------------运行情况统计---------------" << endl;
+    cout << "------------------------------------------" << endl << endl;
+
+    // 输出电梯运行情况统计
+    // 乘客人次
+    ES.PrintElevPtimes();
+
+    cout << "------------------------------------------" << endl;
+    cout << "---------------乘客等待时间---------------" << endl;
+    cout << "------------------------------------------" << endl << endl;
+
+    // 打印乘客发出乘梯要求后的等待时间
+    for(int i=0;i<ES.P.size();i++)
+    {
+        ES.P[i].PrintFinished();
+    }
+
+    cout << "------------------------------------------" << endl;
+    cout << "---------------电梯两项时间---------------" << endl;
+    cout << "------------------------------------------" << endl << endl;
+    // 打印各电梯运行与空闲时间
+    ES.PrintElevFinished();
+
 }

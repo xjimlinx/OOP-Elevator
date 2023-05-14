@@ -3,6 +3,8 @@
 #ifndef PERSON_H
 #define PERSON_H
 
+using namespace std;
+
 class Person
 {
     friend class ElevSystem;
@@ -19,6 +21,7 @@ class Person
         int waitingTime;      // 乘客等待时间
         int nextjoinTime = 0;     // 下一次加入时间
         int currentFloor = 1;     // 当前楼层
+        int preTime;                // 乘客上一次发出请求的时间
 
 
     public:
@@ -27,6 +30,8 @@ class Person
         int waitlistFlag = 0; // 是否在等待队列中
         int oldFlag = 0;      // 是否是第一次请求
         int finishFlag = 0;   // 是否完成请求
+        vector<int> finishedTimes;  // 乘客完成乘梯的时间
+        vector<int> waitingTimes;   // 乘客等待时间
     // 基本方法
 
         // 方法对：id
@@ -59,15 +64,19 @@ class Person
         void setWaitingTime();
         int getWaitingTime();
         void delWaitingTime();
+        int getPreTime();
 
         // 方法：重新生成下一次要进行的请求
-        void nextCall();
+        void nextCall(int currentTime);
         void setCurrentFloor(int floor);
         int getCurrentFloor();
         void refreshFloor(int floor);
 
         // 方法：第三次添加、选择电梯
         void chooseElev();
+
+        // 方法：第四次添加、打印状态
+        void PrintFinished();
 };
 
 #endif
